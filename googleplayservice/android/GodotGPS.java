@@ -248,6 +248,17 @@ public class GodotGPS extends Godot.SingletonBase
 			}
 		});
 	}
+    
+    public void openPlayStore()
+    {
+        final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+        }
+       catch (android.content.ActivityNotFoundException anfe) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + appPackageName)));
+        }
+    }
 
 	static public Godot.SingletonBase initialize(Activity p_activity)
 	{
@@ -258,7 +269,7 @@ public class GodotGPS extends Godot.SingletonBase
 	{
 		registerClass("GooglePlayService", new String[]
 		{
-			"init", "signin", "signout", "getStatus", /*"revoke", *//*"printInfo", */"lbSubmit", "lbShow"
+			"init", "signin", "signout", "getStatus", /*"revoke", *//*"printInfo", */"lbSubmit", "lbShow", "openPlayStore"
 		});
 		activity	= p_activity;
 	}
